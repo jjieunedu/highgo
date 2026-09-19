@@ -23,7 +23,7 @@ export interface School {
   type: SchoolType;
   district: string;            // 예: '용산구', '강남구', '종로구' 등 25개 구
   educationOffice: string;     // 예: '중부교육지원청'
-  foundation: '공립' | '사립';
+  foundation: '공립' | '사립' | '국립';
   gender: GenderType;
   address: string;
   phone: string;
@@ -44,6 +44,8 @@ export type EventCategory =
   | '합격자발표'
   | '합격자등록'
   | '중3필수일정' // 담임교사 강조 일정: 2학기 지필평가, 나이스 내신 마감, 학교장 추천서 등
+  | '입학전배정'
+  | '추가모집'
   | '일반안내';
 
 export interface AdmissionEvent {
@@ -94,3 +96,15 @@ export interface ChecklistItem {
   link?: string;
 }
 
+// 2027학년도 교육감 선발 후기고 체육특기자 배정 요청 데이터
+export interface AthleticSpecialtySchool {
+  id: string;
+  educationOffice: string; // 관할 청 (강남서초, 중부, 서부 등)
+  schoolName: string;
+  foundation: '공립' | '사립' | '국립';
+  sportCategory: string;   // 야구, 축구, 농구, 수영, 태권도 등
+  sportDetail: string;     // 야구(투수), 축구(필드), 태권도(겨루기) 등
+  quotaMale: number;
+  quotaFemale: number;
+  quotaTotal: number;
+}

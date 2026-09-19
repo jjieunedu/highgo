@@ -20,6 +20,8 @@ import {
   School,
   ExternalLink,
   ShieldCheck,
+  Calculator,
+  Trophy,
 } from 'lucide-react';
 
 export default function HomePage() {
@@ -34,8 +36,8 @@ export default function HomePage() {
     .map((id) => SCHOOLS.find((s) => s.id === id))
     .filter(Boolean);
 
-  // 다가오는 주요 D-Day 일정 3개
-  const highlightEvents = ADMISSION_EVENTS.filter((e) => e.isDDayHighlight).slice(0, 3);
+  // 다가오는 주요 D-Day 일정 (공식 일정)
+  const highlightEvents = ADMISSION_EVENTS.filter((e) => e.isDDayHighlight).slice(0, 4);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
@@ -44,7 +46,7 @@ export default function HomePage() {
         <div className="relative z-10 max-w-2xl space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-xs font-semibold text-indigo-200">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span>2027학년도 서울특별시 고등학교 입학전형</span>
+            <span>2027학년도 서울특별시 고등학교 입학전형 (교육청 공고 제2026-318호/319호 반영)</span>
           </div>
 
           <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight leading-tight">
@@ -56,8 +58,7 @@ export default function HomePage() {
           </h1>
 
           <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            전기고(과고, 마이스터, 특성화)부터 후기고(일반고, 자사고, 외고)까지 객관적인 정보와
-            원서접수 일정을 나만의 맞춤 캘린더로 관리할 수 있습니다.
+            2027 신설된 <strong>다자녀(3자녀) 동일교 배정</strong>, <strong>중증 장애학생 형제 동일교 배정</strong>부터 전기고(과고, 마이스터, 특성화) 및 후기고(일반고, 자사고, 외고)까지 정확한 일정과 정보를 관리할 수 있습니다.
           </p>
 
           {/* 현재 로그인 상태 뱃지 & 액션 */}
@@ -79,6 +80,14 @@ export default function HomePage() {
                 <span>3학년 {session.classNum}반 현황판 바로가기</span>
               </Link>
             )}
+
+            <Link
+              href="/guide"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-extrabold transition-all shadow-sm"
+            >
+              <Calculator className="w-3.5 h-3.5" />
+              <span>고입 내신 계산기 (100점 만점)</span>
+            </Link>
           </div>
         </div>
 
@@ -86,7 +95,36 @@ export default function HomePage() {
         <div className="absolute -right-10 -bottom-10 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
       </div>
 
-      {/* ==================== 2. 현재 시기 안내 & 필수 D-Day 배너 ==================== */}
+      {/* ==================== 2. 2027 주요 신규 정책 알림 배너 ==================== */}
+      <div className="bg-gradient-to-r from-indigo-50 via-sky-50 to-emerald-50 rounded-3xl p-5 border border-indigo-100 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shrink-0">
+            <Sparkles className="w-5 h-5" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="px-2 py-0.5 rounded-md bg-indigo-600 text-white text-[10px] font-extrabold">
+                2027학년도 주요 신설
+              </span>
+              <span className="font-extrabold text-slate-900 text-sm">
+                다자녀(3자녀 이상) 및 중증 장애학생 형제·자매 동일학교 배정 신설!
+              </span>
+            </div>
+            <p className="text-xs text-slate-600 mt-0.5">
+              둘째 이상 자녀부터 고1·고2 형제·자매가 재학 중인 동일 고교로 배정 희망 시 우선 동일교 배정 혜택을 부여합니다.
+            </p>
+          </div>
+        </div>
+
+        <Link
+          href="/guide"
+          className="px-4 py-2 rounded-xl bg-white border border-indigo-200 text-indigo-700 hover:bg-indigo-50 text-xs font-bold shrink-0 transition-colors"
+        >
+          상세 지침 확인하기 →
+        </Link>
+      </div>
+
+      {/* ==================== 3. 현재 시기 안내 & 필수 D-Day 배너 ==================== */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* 지금 중3이 확인해야 할 사항 (2열) */}
         <div className="lg:col-span-2 bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/80 shadow-xs space-y-4">
@@ -108,39 +146,39 @@ export default function HomePage() {
             <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-1.5">
               <div className="text-xs font-bold text-indigo-600 flex items-center gap-1">
                 <span>01</span>
-                <span>내신 관리</span>
+                <span>성적 산출 기준</span>
               </div>
               <div className="text-xs font-bold text-slate-800">
-                3학년 2학기 지필평가
+                2026. 11. 13.(금) 기준 마감
               </div>
               <p className="text-[11px] text-slate-500 leading-relaxed">
-                중3 2학기 교과성적과 수행평가가 고입 내신 산출에 그대로 반영됩니다.
+                총점 100점(교과 80 + 출결 20)이 산출되므로 3학년 2학기 지필평가와 출결 관리가 핵심입니다.
               </p>
             </div>
 
             <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-1.5">
               <div className="text-xs font-bold text-indigo-600 flex items-center gap-1">
                 <span>02</span>
-                <span>학교 탐색</span>
+                <span>전기 1곳 소신 탐색</span>
               </div>
               <div className="text-xs font-bold text-slate-800">
-                입학설명회 및 특색 조사
+                과고/마이스터/특성화고
               </div>
               <p className="text-[11px] text-slate-500 leading-relaxed">
-                관심 학교의 모집요강과 설명회 일정을 확인하고 희망고교로 담아두세요.
+                전국 전기고 중 오직 1곳만 지원 가능합니다. 불합격하더라도 후기 일반고 지원이 가능합니다.
               </p>
             </div>
 
             <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-1.5">
               <div className="text-xs font-bold text-indigo-600 flex items-center gap-1">
                 <span>03</span>
-                <span>담임 상담</span>
+                <span>후기 일반고 고교선택</span>
               </div>
               <div className="text-xs font-bold text-slate-800">
-                전기 1곳 / 후기 지망 상담
+                1단계(서울2교) + 2단계(학군2교)
               </div>
               <p className="text-[11px] text-slate-500 leading-relaxed">
-                이중지원 금지 규칙을 확인하고 담임선생님과 최종 지망을 상의하세요.
+                외고·자사고 지원자도 후기 일반고 2단계에 동시 지원하여 안전하게 고입을 준비할 수 있습니다.
               </p>
             </div>
           </div>
@@ -174,7 +212,7 @@ export default function HomePage() {
                     </span>
                   </div>
                   <div className="text-[11px] text-slate-500">
-                    {ev.description.slice(0, 38)}...
+                    {ev.description.slice(0, 36)}...
                   </div>
                 </div>
               ))}
@@ -190,7 +228,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* ==================== 3. 4대 주요 기능 퀵 링크 그리드 ==================== */}
+      {/* ==================== 4. 4대 주요 기능 퀵 링크 그리드 ==================== */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <Link
           href="/schools"
@@ -205,7 +243,7 @@ export default function HomePage() {
                 고등학교 탐색
               </h3>
               <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                전기/후기, 학교유형, 자치구별 필터로 서울 내 학교를 찾고 관심 학교를 담아보세요.
+                2027 마이스터고 개교 서울반도체고, 과학중점 22교, 남녀공학 전환 학교 등 최신 정보를 확인하세요.
               </p>
             </div>
           </div>
@@ -225,10 +263,10 @@ export default function HomePage() {
             </div>
             <div>
               <h3 className="text-base font-extrabold text-slate-900 group-hover:text-blue-600 transition-colors">
-                스마트 고입 캘린더
+                공식 고입 캘린더
               </h3>
               <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                설명회, 원서접수 기간부터 담임 필수 점검 일정까지 내 희망고교만 모아서 볼 수 있습니다.
+                교육청 고시 공식 원서접수일(후기 12.3~12.7, 배정발표 1.28)과 담임 필수 점검일을 확인하세요.
               </p>
             </div>
           </div>
@@ -278,10 +316,10 @@ export default function HomePage() {
             </div>
             <div>
               <h3 className="text-base font-extrabold text-slate-900 group-hover:text-emerald-600 transition-colors">
-                고입 길라잡이
+                고입 길라잡이 & 계산기
               </h3>
               <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                고교선택제 3단계 배정, 이중지원 금지, 중학생 맞춤 용어 사전을 확인하세요.
+                100점 만점 내신 계산기, 3단계 배정, 자사고·외고 자소서 감점 기준, 체육특기자 고교를 확인하세요.
               </p>
             </div>
           </div>
@@ -292,7 +330,7 @@ export default function HomePage() {
         </Link>
       </div>
 
-      {/* ==================== 4. 교사용 안내 배너 ==================== */}
+      {/* ==================== 5. 교사용 안내 배너 ==================== */}
       <div className="bg-gradient-to-r from-amber-500/10 via-amber-50 to-orange-50 rounded-3xl p-6 border border-amber-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
